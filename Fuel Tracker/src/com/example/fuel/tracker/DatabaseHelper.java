@@ -1,5 +1,4 @@
 package com.example.fuel.tracker;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.ContentValues;
@@ -12,16 +11,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
-
 public class DatabaseHelper extends SQLiteOpenHelper {  
-	static final String dbName="Assignments";  
-	   static final int       dbVersion=1;  
+	static final String dbName="Fuel Tracker";  
+	   static final int  dbVersion=1;  
 	   
-	   static final String MileTable="Mileage Table";
-	   static final String colstartloc=" Start Location";
-	   static final String colendloc="End Location";
-	   static final String coltotalMile="Total Mileage";
-	   static final String colgasm="Gas Mileage";
+	   static final String MileTable="Mileage_Table";
+	   static final String id = "ID";
+	   static final String colstartloc=" Current_Mileage";
+	   static final String colendloc="End_Mileage";
+	   static final String coltotalMile="Total_Mileage";
+	   static final String colgasm="Gas_Mileage";
+	   static final String typeveh="Vehicle Type";
 	   
 	   public DatabaseHelper(Context context) {  
 		   
@@ -34,8 +34,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE " +MileTable+" ("+colstartloc+" Integer , "+colendloc+
-				" Integer , "+coltotalMile+" Integer, "+colgasm+" INTEGER )");
+		db.execSQL("CREATE TABLE " +MileTable+" ("+id+"INTEGER PRIMARY KEY AUTOINCREMENT, "+colstartloc+" INTEGER , "+colendloc+
+				" INTEGER , "+coltotalMile+" INTEGER, "+colgasm+" INTEGER, "+typeveh+" TEXT )");
 		
 	}
 	@Override
@@ -43,5 +43,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS "+MileTable);
 		onCreate(db);
 	} 
-
+	public void addtrip(int cmile, int emile, int tmile, int gmile, String veh)
+	{
+		db=this.getWritableDatabase();
+		ContentValues cv=new ContentValues();  
+		cv.put(colstartloc,cmile);  
+		cv.put(colendloc,emile);  
+		cv.put(coltotalMile,tmile);  
+		cv.put(colgasm,gmile);
+		cv.put(typeveh, veh);
+		db.insert(MileTable,id,cv);
+		db.close();
+	
+	}
 }

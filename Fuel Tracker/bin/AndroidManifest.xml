@@ -21,8 +21,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DatabaseHelper"
-            android:label="@string/title_activity_database_helper" >
+            android:name=".DataBaseHelper"
+            android:label="@string/title_activity_data_base_helper" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.assignment.tasker.app.MainActivity" />
